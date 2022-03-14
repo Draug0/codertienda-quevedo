@@ -5,29 +5,51 @@ const NavBar = () => {
         <nav 
             className="navbar 
                        is-spaced 
-                       is-danger 
+                       is-dark
                        is-fixed-top"
         >
             <div className="container">
+                
                 <div className="navbar-brand">
                     <a className="navbar-item" href="#">
-                        <p>TIENDA CODER</p>
+                        <p id="brand">TIENDA CODER</p>
                     </a>
                 </div>
+                
                 <div className="navbar-menu">
+                    
                     <div className="navbar-start">
                         <a className="navbar-item" href="#">
                             <p>Ofertas</p>
                         </a>
-                        <a className="navbar-item" href="#">
-                            <p>Categorías</p>
-                        </a>
+                        <div className="navbar-item has-dropdown is-hoverable">
+                            <a className="navbar-link">
+                                Categorías
+                            </a>
+
+                            <div className="navbar-dropdown">
+                                <a className="navbar-item">
+                                    Libros
+                                </a>
+                                <a className="navbar-item">
+                                    Tecnología
+                                </a>
+                                <a className="navbar-item">
+                                    Servicios
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                    
                     <div className="navbar-end">
-                        <a className="navbar-item" href="#">
-                            <p>Busqueda</p>
-                        </a>
+                        <div className="navbar-item">
+                            <div className="buttons">
+                                <a className="button is-danger">Registrarse</a>
+                                <a className="button is-white">Iniciar Sesión</a>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </nav>
