@@ -2,12 +2,7 @@ import React from "react";
 
 const NavBar = () => {
     return (
-        <nav 
-            className="navbar 
-                       is-spaced 
-                       is-dark
-                       "
-        >
+        <nav className="navbar is-spaced is-dark">
             <div className="container">
                 
                 <div className="navbar-brand">
