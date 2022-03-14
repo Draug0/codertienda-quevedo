@@ -6,7 +6,7 @@ const NavBar = () => {
             className="navbar 
                        is-spaced 
                        is-dark
-                       is-fixed-top"
+                       "
         >
             <div className="container">
                 
@@ -49,7 +49,7 @@ const NavBar = () => {
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </nav>
