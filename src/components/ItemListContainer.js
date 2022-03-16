@@ -4,7 +4,7 @@ import ItemCount from "./ItemCount";
 const ItemListContainer = () => {
     const [ initial, setInitial ] = useState(0)
 
-    const onAdd = (action, stock) => {
+    const onAdd = (action) => {
         if (action == 'sumar') {
             setInitial(initial + 1)
         } else {

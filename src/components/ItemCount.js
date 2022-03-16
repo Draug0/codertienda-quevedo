@@ -9,7 +9,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
             <div className='buttons has-addons'>
                 <button 
                     className={`button is-danger ${stock == 0 || initial == 0 ? 'is-static' : ''}`}
-                    onClick={() => onAdd('restar', stock)}    
+                    onClick={() => onAdd('restar')}    
                 >
                     <span className="icon is-small">
                         <i className="fa-solid fa-minus" />
@@ -20,7 +20,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
                 
                 <button 
                     className={`button is-danger ${initial == stock ? 'is-static' : ''}`}
-                    onClick={() => onAdd('sumar', stock)}
+                    onClick={() => onAdd('sumar')}
                 >
                     <span className="icon is-small">
                         <i class="fa-solid fa-lg fa-plus" />
