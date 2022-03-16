@@ -16,7 +16,7 @@ const ItemListContainer = () => {
         <div className="container">
             <div className="hero-body">
                 <div className="box">
-                    <ItemCount stock={3} initial={initial} onAdd={onAdd}/>
+                    <ItemCount stock={5} initial={initial} onAdd={onAdd}/>
                 </div>
             </div>
         </div>
