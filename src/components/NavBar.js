@@ -1,8 +1,9 @@
 import React from "react";
+import CartWidget from "./CartWidget";
 
 const NavBar = () => {
     return (
-        <nav className="navbar is-spaced is-dark">
+        <nav className="navbar is-spaced is-black">
             <div className="container">
                 
                 <div className="navbar-brand">
@@ -14,7 +15,7 @@ const NavBar = () => {
                 <div className="navbar-menu">
                     
                     <div className="navbar-start">
-                        <a className="navbar-item" href="#">
+                        <a className="navbar-item is-expanded" href="#">
                             <p>Ofertas</p>
                         </a>
                         <div className="navbar-item has-dropdown is-hoverable">
@@ -39,10 +40,11 @@ const NavBar = () => {
                     <div className="navbar-end">
                         <div className="navbar-item">
                             <div className="buttons">
-                                <a className="button is-danger">Registrarse</a>
+                                <a className="button is-info">Registrarse</a>
                                 <a className="button is-white">Iniciar Sesión</a>
                             </div>
                         </div>
+                        <CartWidget />
                     </div>
 
                 </div>
