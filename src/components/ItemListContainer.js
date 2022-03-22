@@ -2,21 +2,15 @@ import React, {useState} from "react";
 import ItemCount from "./ItemCount";
 
 const ItemListContainer = () => {
-    const [ initial, setInitial ] = useState(0)
-
-    const onAdd = (action) => {
-        if (action == 'sumar') {
-            setInitial(initial + 1)
-        } else {
-            setInitial(initial - 1)
-        }
+    const onAdd = (cantidad) => {
+        console.log(cantidad)
     }
     
     return (
         <div className="container">
             <div className="hero-body">
                 <div className="box">
-                    <ItemCount stock={5} initial={initial} onAdd={onAdd}/>
+                    <ItemCount stock={5} initial={0} onAdd={onAdd}/>
                 </div>
             </div>
         </div>
