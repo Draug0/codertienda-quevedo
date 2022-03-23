@@ -1,5 +1,5 @@
 import React from "react";
-import CartWidget from "./CartWidget";
+import CartWidget from "../atoms/CartWidget";
 
 const NavBar = () => {
     return (
@@ -7,7 +7,7 @@ const NavBar = () => {
             <div className="container">
                 
                 <div className="navbar-brand">
-                    <a className="navbar-item" href="#">
+                    <a className="navbar-item">
                         <p id="brand">TIENDA CODER</p>
                     </a>
                 </div>
@@ -15,7 +15,7 @@ const NavBar = () => {
                 <div className="navbar-menu">
                     
                     <div className="navbar-start">
-                        <a className="navbar-item is-expanded" href="#">
+                        <a className="navbar-item is-expanded">
                             <p>Ofertas</p>
                         </a>
                         <div className="navbar-item has-dropdown is-hoverable">
