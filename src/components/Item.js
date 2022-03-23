@@ -1,6 +1,6 @@
 import React from 'react'
 import './Item.css'
-import ItemCount from '../atoms/ItemCount'
+import ItemCount from './ItemCount'
 
 const styles = {
   ribbon: {

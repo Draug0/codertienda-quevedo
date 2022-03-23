@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import mockFetch from "../../mock-async";
-import ItemList from "../molecules/ItemList";
+import mockFetch from "../mock-async";
+import ItemList from "./ItemList";
 
 const ItemListContainer = () => {
     const [items, setItems] = useState([])

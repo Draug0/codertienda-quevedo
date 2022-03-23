@@ -1,7 +1,7 @@
 import './App.css';
 import 'bulma/css/bulma.min.css'
-import NavBar from './components/organisms/NavBar';
-import ItemListContainer from './components/organisms/ItemListContainer';
+import NavBar from './components/NavBar';
+import ItemListContainer from './components/ItemListContainer';
 
 
 
