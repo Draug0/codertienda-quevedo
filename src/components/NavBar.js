@@ -8,7 +8,7 @@ const NavBar = () => {
                 
                 <div className="navbar-brand">
                     <a className="navbar-item">
-                        <p id="brand">TIENDA CODER</p>
+                        <img src='logo-nav.png' />
                     </a>
                 </div>
                 
@@ -25,13 +25,13 @@ const NavBar = () => {
 
                             <div className="navbar-dropdown">
                                 <a className="navbar-item">
-                                    Libros
+                                    Fantasia
                                 </a>
                                 <a className="navbar-item">
-                                    Tecnología
+                                    Ciencia Ficción
                                 </a>
                                 <a className="navbar-item">
-                                    Servicios
+                                    Historia
                                 </a>
                             </div>
                         </div>

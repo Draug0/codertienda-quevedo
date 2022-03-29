@@ -12,7 +12,7 @@ const styles = {
   }
 }
 
-const Item = ({ item }) => {
+const Item = ({ item, setId }) => {
   const onAdd = (amount) =>{
     console.log(amount)
   }
@@ -31,12 +31,13 @@ const Item = ({ item }) => {
         <div className='card-content'>
           <div className='content is-family-secondary	'>
             <p className='subtitle'>{item.title}</p>
+            <p>By {item.author}</p>
           </div>
-          <ItemCount stock={item.stock} initial={0} onAdd={onAdd}/>
+          {/*<ItemCount stock={item.stock} initial={0} onAdd={onAdd}/>*/}
         </div>
 
         <footer className='card-footer'>
-          <a className='card-footer-item'>
+          <a className='card-footer-item' onClick={() => setId(item.id)}>
             Más información
           </a>
           <p className='card-footer-item has-text-weight-semibold'>

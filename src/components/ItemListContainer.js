@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
-import mockFetch from "../mock-async";
+import { mockFetch } from "../mock-async";
 import ItemList from "./ItemList";
 
-const ItemListContainer = () => {
+const ItemListContainer = ({ setId }) => {
     const [items, setItems] = useState([])
     
     useEffect(() => {
@@ -14,12 +14,10 @@ const ItemListContainer = () => {
     })
 
     return (
-        <div className="hero-body">
-            <div className="container">
-                <div className="box is-shadowless">
-                    {items.length === 0 && <button className="button is-loading" />}
-                    <ItemList items={items} />
-                </div>
+        <div className="container">
+            <div className="box is-shadowless">
+                {items.length === 0 && <button className="button is-loading" />}
+                <ItemList items={items} setId={setId} />
             </div>
         </div>
     )

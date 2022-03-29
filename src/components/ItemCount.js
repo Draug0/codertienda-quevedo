@@ -1,14 +1,18 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const ItemCount = ({ stock, initial, onAdd }) => {
     const [ amount, setAmount ] = useState(initial)
 
     const handleAmount = (action) => {
-        if (action === 'sumar') {
+        if (action === 'sumar' && amount < stock) {
             setAmount(amount + 1)
-        } else {
+        } else if (action === 'restar' && amount > 0){
             setAmount(amount - 1)
         }
+    }
+
+    if (amount > stock) {
+        setAmount(0)
     }
     
     
