@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# RED BOOK - Librería Online
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Proyecto de React JS - Coder House
 
-## Available Scripts
+### Dependencias utilizadas
 
-In the project directory, you can run:
+Como dependencias utilicé Bulma y Node-sass. Bulma ya que es un framework de CSS que ya había usado y me pareció muy limpió y simple. Y por último, node-sass porque querías modificar valores de Bulma (simplemente retoqué colores) y necesitaba un compilador de Sass.
 
-### `npm start`
+## Explicación
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+La tienda que decidí desarrollar es una librería online (el nombre proviene del Libro Rojo de Westmarch). Me pareció que los libros tenían diferentes características (categorías, tapa dura o tapa blanda, de bolsillo, etc) para categorizar y así poder implementar diferentes filtros. Para la entrega intermedia me limité por consigna a filtrarlos por categorías: fantasía, ciencia ficción y novela.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+La creación del Navbar y los container fue directa y sencilla gracias a Bulma. Además, estaba buscando que los componentes Item fueran responsive a la hora de mapearlos y allí el framework también me ayudó con la implementación de columnas. Utilicé tarjetas para ellos, y le apliqué un marcador con el precio para que se destacara más. Para el ItemDetail, decidí crear un layout simple con una imagen a la izquierda, la descripción en el medio, y el precio y controladores a la derecha. A su vez, ItemDetail es responsive.
 
-### `npm test`
+Las función mockFetch es una promesa cuya respuesta es una lista de todos los ítems disponibles. Y la función getItem recibe como argumento un id y devuelve una promesa cuya respuesta es el item que su id coincide.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Para mejorar un poco la navegación, implementé un breadcrumb que marqué un caminó general para que el usuario sepa exactamente dónde está. Asimismo, agregué un botón que permite volver a la página anterior debajo de los detalles de precio en ItemDetail.
 
-### `npm run build`
+Además, creé una página que mapea los ítems en oferta. Básicamente, lee una propiedad de cada ítem llamada "sale" que es un booleano, y mapea solo los ítems donde es verdadera.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## To run the project locally
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Clone the project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+  git clone https://github.com/agustinquevedo/themoviedb
+```
 
-### `npm run eject`
+Go to the project directory
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+  cd themoviedb
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+  npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Start the server
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+  npm run start
+```

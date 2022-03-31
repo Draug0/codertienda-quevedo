@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 
 const ItemCount = ({ stock, initial, onAdd }) => {
     const [ amount, setAmount ] = useState(initial)
@@ -21,7 +21,7 @@ const ItemCount = ({ stock, initial, onAdd }) => {
                 
             <div className='buttons has-addons'>
                 <button 
-                    className={`button is-danger ${stock === 0 || amount === 0 ? 'is-static' : ''}`}
+                    className={`button is-danger ${stock === 1 || amount === 1 ? 'is-static' : ''}`}
                     onClick={() => handleAmount('restar')}    
                 >
                     <span className="icon is-small">
@@ -41,7 +41,11 @@ const ItemCount = ({ stock, initial, onAdd }) => {
                 </button>
             </div>
 
-            <button className={`button is-dark ${amount === 0 ? 'is-static' : ''}`} onClick={() => onAdd(amount)}>
+            <div className="content">
+                <h6 className="has-text-white">¡{stock} disponible!</h6>
+            </div>
+
+            <button className='button is-danger' onClick={() => onAdd(amount)}>
                 Añadir al carrito
             </button>
         </div>

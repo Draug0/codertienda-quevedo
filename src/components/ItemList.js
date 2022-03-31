@@ -1,11 +1,11 @@
 import React from 'react'
-import Item from './Item'
+import Item from './Item/Item'
 
-const ItemList = ({ items, setId }) => {
+const ItemList = ({ items }) => {
   return (
-    <div className='columns is-align-items-stretch'>
+    <div className='columns is-mobile is-multiline is-centered is-align-items-stretch'>
         {items.map(item => 
-            <Item key={item.id} item={item} setId={setId} /> 
+            <Item key={item.id} item={item} /> 
         )}
     </div>
   )

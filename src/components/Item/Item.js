@@ -1,6 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import './Item.css'
-import ItemCount from './ItemCount'
 
 const styles = {
   ribbon: {
@@ -12,18 +12,16 @@ const styles = {
   }
 }
 
-const Item = ({ item, setId }) => {
-  const onAdd = (amount) =>{
-    console.log(amount)
-  }
+const Item = ({ item }) => {
   
   return (
-    <div className='column'>
+    <div className='column is-one-quarter-fullhd is-one-third-widescreen is-half-desktop is-half-tablet is-full-mobile'> 
+      
       <div className='card' id='card'>  
         <div className="bookmarkRibbon"><span style={styles.ribbon}>${item.price}</span></div>
 
         <div className='card-image'>
-          <figure className='image is-3by4'>
+          <figure className='image is-4by5'>
             <img src={item.pictureUrl} alt={item.title} />
           </figure>
         </div>
@@ -33,13 +31,12 @@ const Item = ({ item, setId }) => {
             <p className='subtitle'>{item.title}</p>
             <p>By {item.author}</p>
           </div>
-          {/*<ItemCount stock={item.stock} initial={0} onAdd={onAdd}/>*/}
         </div>
 
         <footer className='card-footer'>
-          <a className='card-footer-item' onClick={() => setId(item.id)}>
+          <Link to={`/item/${item.id}`} className='card-footer-item'>
             Más información
-          </a>
+          </Link>
           <p className='card-footer-item has-text-weight-semibold'>
             <span className='is-size-5'>
               Stock: {item.stock}
@@ -48,6 +45,7 @@ const Item = ({ item, setId }) => {
         </footer>
 
       </div>
+      
     </div>
   )
 }

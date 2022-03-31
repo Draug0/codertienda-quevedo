@@ -1,0 +1,37 @@
+#media {
+  max-width: 95%;
+  text-align: left;
+  margin: auto;
+}
+
+#image {
+  border-radius: 10px;
+  height: 350px;
+  /*width: auto;*/
+}
+
+#info {
+  /*min-width: 90%;
+  max-width: 90%;*/
+  margin: auto;
+}
+
+#price-card {
+  text-align: center;
+  width: 220px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white; 
+}
+
+@media (max-width: 900px) {
+  #media-r {
+    margin-left: 0;
+  }
+  #media {
+    flex-flow: column wrap;
+    align-items: center;
+  }
+  #info {
+    padding: 10vw 0;
+  }
+}
