@@ -3,6 +3,7 @@ import NavBar from './components/Navbar/NavBar';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ItemListContainer from './components/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer';
+import Cart from './components/Cart';
 
 
 
@@ -20,6 +21,8 @@ function App() {
               <Route exact path={'/category/:categoryId'} element={<ItemListContainer />} />
 
               <Route exact path={'/item/:itemId'} element={<ItemDetailContainer />} />
+
+              <Route exact path='/cart' element={<Cart />}/>
             </Routes>
           </div>
           <footer className='footer' style={{textAlign: 'center'}}/>

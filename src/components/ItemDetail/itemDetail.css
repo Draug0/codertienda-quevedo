@@ -24,6 +24,9 @@
 }
 
 @media (max-width: 900px) {
+  #media-l {
+    margin-right: 0;
+  }
   #media-r {
     margin-left: 0;
   }

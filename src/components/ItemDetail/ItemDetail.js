@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ItemCount from '../ItemCount'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './itemDetail.css'
 
 const ItemDetail = ({ item }) => {
-  const onAdd = (amount) =>{
-    console.log(amount)
+  const [ displayCount, setDisplayCount ] = useState(true)
+  const [ amount, setAmount ] = useState(1)
+  
+  const onAdd = (event) => {
+    setDisplayCount(false)
+    let itemAdded = item
+    itemAdded.amount = amount
+
+    console.log(itemAdded)
   }
 
   const navigate = useNavigate()
@@ -17,7 +24,7 @@ const ItemDetail = ({ item }) => {
   return (
     <article className='media' id='media'>
       
-      <figure className='media-left' style={{flexGrow: 1}}>
+      <figure className='media-left' id='media-l' style={{flexGrow: 1}}>
         <p className='image'>
           <img id='image' src={item.pictureUrl} alt={item.title}/>
         </p>
@@ -37,12 +44,34 @@ const ItemDetail = ({ item }) => {
 
       <div className='media-right' id='media-r' style={{flexGrow: 1}}>
         <div className='box is-shadowless' id='price-card'>
-          <div className='content'	style={{paddingBottom: '5px'}}>
+          <div className='content'>
             <h3 className='has-text-white'>
               Precio: ${item.price}
             </h3>
+            <hr />
+            { 
+              displayCount
+              ?
+                <ItemCount 
+                  stock={item.stock}
+                  amount={amount}
+                  setAmount={setAmount}
+                  onAdd={onAdd}
+                />
+              :
+                <div>
+                  <div className='icon is-large'>
+                    <i className="fa-regular fa-2x fa-circle-check" />
+                  </div>
+                  <hr />
+                  <Link to={'/cart'}>
+                    <button className='button is-danger'>
+                        Terminar mi compra
+                    </button>
+                  </Link>
+                </div>
+            }     
           </div>
-          <ItemCount stock={item.stock} initial={1} onAdd={onAdd}/>
         </div>
         <button className='button is-black' onClick={handleBack}>Atrás</button>
       </div>
