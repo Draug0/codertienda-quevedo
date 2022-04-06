@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import ItemCount from '../ItemCount'
 import { Link, useNavigate } from 'react-router-dom'
 import './itemDetail.css'
+import { CartContext } from '../../context/CartContext'
 
 const ItemDetail = ({ item }) => {
-  const [ displayCount, setDisplayCount ] = useState(true)
   const [ amount, setAmount ] = useState(1)
+
+  const { addItem, isInCart } = useContext(CartContext)
   
-  const onAdd = (event) => {
-    setDisplayCount(false)
+  const onAdd = () => {
     let itemAdded = item
     itemAdded.amount = amount
 
-    console.log(itemAdded)
+    addItem(itemAdded)
   }
 
   const navigate = useNavigate()
@@ -46,11 +47,11 @@ const ItemDetail = ({ item }) => {
         <div className='box is-shadowless' id='price-card'>
           <div className='content'>
             <h3 className='has-text-white'>
-              Precio: ${item.price}
+              Precio: $ {item.price * amount}
             </h3>
             <hr />
             { 
-              displayCount
+              !isInCart(item.id)
               ?
                 <ItemCount 
                   stock={item.stock}

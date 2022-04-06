@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 const ItemCount = ({ stock, amount, setAmount, onAdd }) => {
     const handleAmount = (action) => {
         if (action === 'sumar' && amount < stock) {
             setAmount(amount + 1)
-        } else if (action === 'restar' && amount > 0){
+        } else if (action === 'restar' && amount > 1){
             setAmount(amount - 1)
         }
     }

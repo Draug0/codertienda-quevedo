@@ -1,10 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
 import CartWidget from "../CartWidget";
 import logo from './logo-nav.png'
 
 const NavBar = () => {
     const [navBurger, setNavBurger] = useState(false);
+
+    const { cart } = useContext(CartContext)
+
+    const handleNavBurger = () => {
+        setNavBurger(!navBurger)
+    }
 
     return (
         <nav className="navbar is-spaced is-black">
@@ -19,7 +26,7 @@ const NavBar = () => {
                         aria-label="menu" 
                         aria-expanded="false" 
                         data-target="navbarBasicExample"
-                        onClick={() => setNavBurger(!navBurger)}
+                        onClick={handleNavBurger}
                     >
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
@@ -53,10 +60,11 @@ const NavBar = () => {
                         </div>
                     </div>
                     
-                    <div className="navbar-end">
-                        <CartWidget />
-                    </div>
-
+                    {cart.length > 0 &&
+                        <div className="navbar-end">
+                            <CartWidget />
+                        </div>
+                    }
                 </div>
             </div>
         </nav>
