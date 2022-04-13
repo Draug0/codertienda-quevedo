@@ -21,7 +21,7 @@ export const CartProvider = ({ children }) => {
     return cart.reduce((acc, item) => acc += item.quantity * item.price, 0)
   }
 
-  const editAmount = (id, quantity) => {
+  const editQuantity = (id, quantity) => {
     setCart(cart.map(item => {
       if (item.id === id && quantity <= item.stock && quantity > 0) {
         item.quantity = quantity
@@ -49,7 +49,7 @@ export const CartProvider = ({ children }) => {
       cartTotal,
       clearCart,
       removeItem,
-      editAmount
+      editQuantity
     }}>
       {children}
     </CartContext.Provider>

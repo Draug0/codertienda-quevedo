@@ -4,9 +4,9 @@ import { CartContext } from '../context/CartContext'
 
 const CartTableItem = ({ item }) => {
   const [ showEdit, setShowEdit ] = useState(false)
-  const [ amountEdit, setAmountEdit ] = useState(item.amount)
+  const [ quantityEdit, setQuantityEdit ] = useState(item.quantity)
   
-  const { removeItem, editAmount } = useContext(CartContext)
+  const { removeItem, editQuantity } = useContext(CartContext)
 
   const toggleEdit = () => {
     setShowEdit(true)
@@ -16,13 +16,13 @@ const CartTableItem = ({ item }) => {
     removeItem(item.id)
   }
 
-  const handleAmount = (e) => {
-    setAmountEdit(e.target.value)
+  const handleQuantity = (e) => {
+    setQuantityEdit(e.target.value)
   }
 
   const handleEdit = (e) => {
     e.preventDefault()
-    editAmount(item.id, Number(amountEdit))
+    editQuantity(item.id, Number(quantityEdit))
     setShowEdit(false)
   }
 
@@ -42,8 +42,8 @@ const CartTableItem = ({ item }) => {
               <form onSubmit={handleEdit} >
                 <input 
                   type='number' 
-                  onChange={handleAmount}
-                  value={amountEdit}
+                  onChange={handleQuantity}
+                  value={quantityEdit}
                   autoFocus 
                   min={1} 
                   max={item.stock}
@@ -57,7 +57,7 @@ const CartTableItem = ({ item }) => {
         ) : (
           <span className='icon-text'>
             <span>
-              {item.amount}  
+              {item.quantity}  
             </span>
             <span className='icon' id='amount-edit' onClick={toggleEdit}>
               <i className='fa-solid fas fa-pen' />
