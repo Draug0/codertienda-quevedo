@@ -66,7 +66,7 @@ const CartTableItem = ({ item }) => {
         )}
         
       </td>
-      <td>$ {item.amount * item.price}</td>
+      <td>$ {item.quantity * item.price}</td>
       <td>
         <span className='icon' id='delete-item' onClick={handleRemove}>
           <i className="fa-solid fa-trash" />

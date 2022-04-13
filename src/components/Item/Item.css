@@ -1,12 +1,12 @@
 #card {
     border-radius: 10px;
+    /*height: 100%;*/
     transition: transform 0.2s;
 }
   
 #card:hover {
     transform: scale(1.02);
 }
-
 
 .bookmarkRibbon {
     width: 85px;

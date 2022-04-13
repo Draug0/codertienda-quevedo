@@ -1,12 +1,10 @@
 import './styles/App.css';
 import NavBar from './components/Navbar/NavBar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ItemListContainer from './components/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import Cart from './components/Cart/Cart';
 import { CartProvider } from './context/CartContext';
-
-
 
 function App() {
   return (
@@ -25,6 +23,8 @@ function App() {
                 <Route exact path={'/item/:itemId'} element={<ItemDetailContainer />} />
 
                 <Route exact path='/cart' element={<Cart />}/>
+
+                <Route exact path='*' element={<Navigate to='/' />} />
               </Routes>
             </div>
             <footer className='footer' style={{textAlign: 'center'}}/>

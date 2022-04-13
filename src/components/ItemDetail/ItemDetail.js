@@ -11,7 +11,7 @@ const ItemDetail = ({ item }) => {
   
   const onAdd = () => {
     let itemAdded = item
-    itemAdded.amount = amount
+    itemAdded.quantity = amount
 
     addItem(itemAdded)
   }

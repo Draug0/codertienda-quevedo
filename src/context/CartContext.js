@@ -13,18 +13,18 @@ export const CartProvider = ({ children }) => {
     return cart.some(item => item.id === id)
   }
 
-  const cartQuantity = () => {
-    return cart.reduce((acc, item) => acc += item.amount, 0)
+  const cartQuantityTotal = () => {
+    return cart.reduce((acc, item) => acc += item.quantity, 0)
   }
 
   const cartTotal = () => {
-    return cart.reduce((acc, item) => acc += item.amount * item.price, 0)
+    return cart.reduce((acc, item) => acc += item.quantity * item.price, 0)
   }
 
-  const editAmount = (id, amount) => {
+  const editAmount = (id, quantity) => {
     setCart(cart.map(item => {
-      if (item.id === id && amount <= item.stock && amount > 0) {
-        item.amount = amount
+      if (item.id === id && quantity <= item.stock && quantity > 0) {
+        item.quantity = quantity
         return item
       } else {
         return item
@@ -45,7 +45,7 @@ export const CartProvider = ({ children }) => {
       cart,
       addItem,
       isInCart,
-      cartQuantity,
+      cartQuantityTotal,
       cartTotal,
       clearCart,
       removeItem,
