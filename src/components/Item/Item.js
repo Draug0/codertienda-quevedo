@@ -33,12 +33,12 @@ const Item = ({ item }) => {
           </div>
         </div>
 
-        <footer className="card-footer">
+        <footer className="card-footer" id='card-footer'>
           <Link to={`/item/${item.id}`} className="card-footer-item">
             Más información
           </Link>
-          <p className="card-footer-item has-text-weight-semibold">
-            <span className="is-size-5">Stock: {item.stock}</span>
+          <p className="card-footer-item">
+            <span>Stock: {item.stock}</span>
           </p>
         </footer>
       </div>
