@@ -65,10 +65,10 @@ const Checkout = () => {
         <div className="field">
           <p className="control has-icons-left">
             <input
-              className="input"
+              className="input is-rounded"
               type="text"
               name="name"
-              placeholder="Nombre y apellido"
+              placeholder="Nombre y apellido*"
               required
             />
             <span className="icon is-small is-left">
@@ -79,10 +79,10 @@ const Checkout = () => {
         <div className="field">
           <div className="control has-icons-left">
             <input
-              className="input"
+              className="input is-rounded"
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder="Email*"
               required
             />
             <span className="icon is-small is-left">
@@ -93,11 +93,11 @@ const Checkout = () => {
         <div className="field">
           <div className="control has-icons-left">
             <input
-              className="input"
+              className="input is-rounded"
               type="tel"
               name="tel"
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{3,4}||[0-9]{3} [0-9]{3,4} [0-9]{4}||[0-9]{10}"
-              placeholder="Número de teléfono"
+              placeholder="Número de teléfono*"
               required
             />
             <span className="icon is-small is-left">

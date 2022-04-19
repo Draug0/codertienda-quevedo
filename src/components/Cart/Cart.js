@@ -44,7 +44,7 @@ const Cart = () => {
         <button className='button is-link' onClick={clearCart}> 
           Vacíar carrito
         </button>
-        <Link to='/checkout' className='button is-link'> 
+        <Link to='/checkout' className='button is-black'> 
           Terminar mi compra
         </Link>
       </div>
