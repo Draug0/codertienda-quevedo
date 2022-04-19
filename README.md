@@ -23,13 +23,13 @@ Además, creé una página que mapea los ítems en oferta. Básicamente, lee una
 Clone the project
 
 ```bash
-  git clone https://github.com/agustinquevedo/themoviedb
+  git clone https://github.com/Draug0/codertienda-quevedo
 ```
 
 Go to the project directory
 
 ```bash
-  cd themoviedb
+  cd codertienda-quevedo
 ```
 
 Install dependencies

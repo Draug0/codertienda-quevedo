@@ -59,7 +59,7 @@ const Checkout = () => {
 
   return (
     <div className="container">
-      <p className="title">Finaliza tu compra :)</p>
+      <p className="title">Finaliza tu compra</p>
       <hr />
       <form onSubmit={handleSubmit} onChange={handleChange}>
         <div className="field">

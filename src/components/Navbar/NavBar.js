@@ -60,11 +60,10 @@ const NavBar = () => {
                         </div>
                     </div>
                     
-                    {cart.length > 0 &&
-                        <div className="navbar-end">
-                            <CartWidget />
-                        </div>
-                    }
+                    <div className="navbar-end">
+                        {cart.length > 0 && <CartWidget />}
+                    </div>
+
                 </div>
             </div>
         </nav>

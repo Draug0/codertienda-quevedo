@@ -33,45 +33,55 @@ const Order = () => {
 
   return (
     <div className='container'>
-      <p className='title'>
-        Todo listo :)
-      </p>
-      <hr />
-      <p className='subtitle'>
-        Nº de orden: <strong>{orderId}</strong>
-      </p>
-      <p>Datos de la compra</p>
-      <p>
-        Nombre: {order.buyer.name} 
-      </p>
-      <p>
-        Email: {order.buyer.email}
-      </p>
-      <table className='table is-hoverable is-fullwidth' style={{textAlign: 'left'}}>
-        <thead>
-          <tr>
-            <th>Titulo</th>
-            <th>Cantidad</th>
-            <th>Precio</th>
-          </tr>
-        </thead>
-        <tbody>
-          {order.items.map(item => (
-            <tr key={item.id}>
-              <td>{item.title}</td>
-              <td>{item.quantity}</td>
-              <td>${item.quantity * item.price}</td>
-            </tr>
-          ))}
-        </tbody>
-        <tfoot>
-          <tr>
-            <th>Total</th>
-            <th />
-            <th>$ {order.total}</th>
-          </tr>
-        </tfoot>
-      </table>
+      <div className='content'>
+        <p className='title'>
+          Todo listo :)
+        </p>
+        <hr />
+        <p className='subtitle'>
+          Nº de orden: <strong>{orderId}</strong>
+        </p>
+        <p className='has-text-link'>
+          ¡Recuerda anortar tu nº de orden!
+        </p>
+        <h4>Datos de la compra</h4>
+          <blockquote style={{textAlign: 'left'}}>
+          <p>
+            <strong>Nombre:</strong> {order.buyer.name} 
+          </p>
+          <p>
+            <strong>Email:</strong> {order.buyer.email}
+          </p>
+
+          <p>
+            <strong>
+              Libros:
+            </strong>
+          </p>
+        
+          <table className='table is-hoverable is-fullwidth'>
+            <thead>
+              <tr>
+                <th>Titulo</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+              </tr>
+            </thead>
+            <tbody>
+              {order.items.map(item => (
+                <tr key={item.id}>
+                  <td>{item.title}</td>
+                  <td>{item.quantity}</td>
+                  <td>${item.quantity * item.price}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p>
+            <strong>Total:</strong> ${order.total}
+          </p>
+        </blockquote>
+      </div>
     </div>
   )
 }
