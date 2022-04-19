@@ -5,6 +5,8 @@ import ItemListContainer from './components/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer';
 import Cart from './components/Cart/Cart';
 import { CartProvider } from './context/CartContext';
+import Checkout from './components/Checkout';
+import Order from './components/Order';
 
 function App() {
   return (
@@ -23,6 +25,10 @@ function App() {
                 <Route exact path={'/item/:itemId'} element={<ItemDetailContainer />} />
 
                 <Route exact path='/cart' element={<Cart />}/>
+
+                <Route exact path='/checkout' element={<Checkout />} />
+
+                <Route exact path='/order/:orderId' element={<Order />} /> 
 
                 <Route exact path='*' element={<Navigate to='/' />} />
               </Routes>

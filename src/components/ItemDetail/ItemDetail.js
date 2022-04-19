@@ -10,8 +10,14 @@ const ItemDetail = ({ item }) => {
   const { addItem, isInCart } = useContext(CartContext);
 
   const onAdd = () => {
-    let itemAdded = item;
-    itemAdded.quantity = cantidad;
+    let itemAdded = {
+      id: item.id,
+      title: item.title,
+      price: item.price,
+      stock: item.stock,
+      sale: item.sale,
+      quantity: cantidad
+    };
 
     addItem(itemAdded);
   };

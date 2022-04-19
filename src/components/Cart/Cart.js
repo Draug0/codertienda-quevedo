@@ -40,9 +40,14 @@ const Cart = () => {
   return (
     <div className='container' style={{textAlign: 'left'}}>
       <p className='title'> Tu carrito</p>
-      <button className='button is-link' onClick={clearCart}> 
-        Vacíar carrito
-      </button>
+      <div className='buttons'>
+        <button className='button is-link' onClick={clearCart}> 
+          Vacíar carrito
+        </button>
+        <Link to='/checkout' className='button is-black'> 
+          Terminar mi compra
+        </Link>
+      </div>
       <hr />
       <div className='table-container'>
         <table className='table is-hoverable is-fullwidth is-narrow'>
