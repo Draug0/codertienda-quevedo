@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { db } from "../firebase/config";
+import { db } from "../../firebase/config";
 import { doc, getDoc } from "firebase/firestore";
-import ItemDetail from "./ItemDetail/ItemDetail";
+import ItemDetail from "../ItemDetail/ItemDetail";
+import "./itemDetailContainer.css";
 
 const ItemDetailContainer = () => {
   const [item, setItem] = useState({});
@@ -31,15 +32,19 @@ const ItemDetailContainer = () => {
       ) : (
         <>
           <nav
-            className="breadcrumb has-succeeds-separator is-small"
+            className="breadcrumb has-succeeds-separator small"
             aria-label="breadcrumbs"
           >
             <ul>
               <li>
-                <Link to={"/"}>Home</Link>
+                <Link className="link-color" to={"/"}>
+                  Home
+                </Link>
               </li>
               <li>
-                <Link to={`/category/${item.category}`}>{item.category}</Link>
+                <Link className="link-color" to={`/category/${item.category}`}>
+                  {item.category}
+                </Link>
               </li>
               <li className="is-active">
                 <a href="#" aria-current="page">

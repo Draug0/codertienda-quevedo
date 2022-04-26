@@ -51,7 +51,7 @@ const ItemListContainer = ({ sale }) => {
             >
               <ul>
                 <li>
-                  <Link to={"/"}>Home</Link>
+                  <Link className="link-color" to={"/"}>Home</Link>
                 </li>
                 <li className="is-active">
                   <a href="#" aria-current="page">

@@ -1,8 +1,9 @@
 import './styles/App.css';
+import 'bulma'
 import NavBar from './components/Navbar/NavBar';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import ItemListContainer from './components/ItemListContainer';
-import ItemDetailContainer from './components/ItemDetailContainer';
+import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailContainer';
 import Cart from './components/Cart/Cart';
 import { CartProvider } from './context/CartContext';
 import Checkout from './components/Checkout';

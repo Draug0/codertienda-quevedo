@@ -41,7 +41,7 @@ const Order = () => {
         <p className='subtitle'>
           Nº de orden: <strong>{orderId}</strong>
         </p>
-        <p className='has-text-link'>
+        <p className='link-color'>
           ¡Recuerda anortar tu nº de orden!
         </p>
         <h4>Datos de la compra</h4>

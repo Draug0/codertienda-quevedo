@@ -22,7 +22,7 @@ const Cart = () => {
               </span>
             </span>
           </Link>
-          <Link to='/ofertas' className='button is-link'>
+          <Link to='/ofertas' className='button link'>
             <span className='icon-text'>
               <span className='icon'>
                 <i className='fa-solid fa-tag'/>
@@ -41,7 +41,7 @@ const Cart = () => {
     <div className='container' style={{textAlign: 'left'}}>
       <p className='title'> Tu carrito</p>
       <div className='buttons'>
-        <button className='button is-link' onClick={clearCart}> 
+        <button className='button link' onClick={clearCart}> 
           Vacíar carrito
         </button>
         <Link to='/checkout' className='button is-black'> 

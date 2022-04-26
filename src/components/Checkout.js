@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { db } from "../firebase/config";
-import { addDoc, collection, getDocs, query, Timestamp, where } from "firebase/firestore";
+import { addDoc, collection, documentId, getDocs, query, Timestamp, where, writeBatch } from "firebase/firestore";
 import { Navigate } from "react-router-dom";
 
 const Checkout = () => {
@@ -10,8 +10,10 @@ const Checkout = () => {
     email: "",
     tel: "",
   });
-  const [orderId, setOrderId] = useState()
-  const { cart, cartTotal, clearCart } = useContext(CartContext)
+  const [ orderId, setOrderId ] = useState()
+  const [ stockModal, setStockModal ] = useState(false)
+  const [ sinStock, setSinStock ] = useState([])
+  const { cart, cartTotal, clearCart, updatePrice } = useContext(CartContext)
 
   const handleChange = (e) => {
     setForm({
@@ -20,30 +22,63 @@ const Checkout = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const order = {
+    const orderCollection = collection(db, 'orders')
+    const prodRef = collection(db, 'productos')
+    const q = query(prodRef, where(documentId(), 'in', cart.map(i => i.id)))
+
+    const productos = await getDocs(q)
+    const batch = writeBatch(db)
+    var noStock = []
+
+    productos.docs.forEach(item => {
+      const producto = item.data()
+      const prodInCart = cart.find(i => i.id === item.id)
+
+      let price = producto.sale ? producto.price - producto.price / 10 : producto.price
+      updatePrice(item.id, price)
+
+      if (prodInCart.quantity <= producto.stock && prodInCart.quantity > 0) {
+        let newStock = producto.stock - prodInCart.quantity
+        batch.update(item.ref, { stock: newStock })
+      } else {
+        noStock.push(producto.title)
+      }
+    })
+
+    const order =  {
       buyer: {
         name: form.name,
         phone: form.tel,
         email: form.email
       },
-      items: [
-        ...cart
-      ],
+      items: [...cart],
       date: Timestamp.fromDate(new Date()),
       total: cartTotal()
     }
 
-    const orderCollection = collection(db, 'orders')
-
-    addDoc(orderCollection, order)
-      .then((doc) => {
-        setOrderId(doc.id)
-        clearCart()
-      })
+    if (noStock.length === 0) {
+      addDoc(orderCollection, order)
+        .then((doc) => {
+          batch.commit()
+          setOrderId(doc.id)
+          clearCart()
+        })
+    } else {
+      setStockModal(true)
+      setSinStock(noStock)
+      for (let i = 0; i < noStock.length; i++) {
+        noStock.pop()
+      }
+    }    
   };
+
+  const handleModal = () => {
+    setStockModal(false)
+    setSinStock([])
+  }
 
   if(orderId) {
     return (
@@ -105,10 +140,28 @@ const Checkout = () => {
             </span>
           </div>
         </div>
-        <button className="button is-link" type="submit">
+        <button className="button link" type="submit">
           Checkout
         </button>
       </form>
+      {
+        stockModal && (
+          <div className="modal is-active">
+            <div className="modal-background" onClick={handleModal}/>
+            <div className="modal-content">
+              <div className="box">
+                <div className="content" style={{textAlign: 'left'}}>
+                  <h3>No hay suficiente stock de los siguientes item(s):</h3>
+                  <ul>
+                    {sinStock.map((i, n) => <li key={n}>{i}</li>)}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <button className="modal-close is-large" aria-label="close" onClick={handleModal} />
+          </div>
+        )
+      }
     </div>
   );
 };

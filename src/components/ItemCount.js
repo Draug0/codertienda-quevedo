@@ -17,8 +17,8 @@ const ItemCount = ({ stock, cantidad, setCantidad, onAdd }) => {
     <div className="is-flex is-flex-direction-column is-align-items-center">
       <div className="buttons has-addons">
         <button
-          className={`button is-danger ${
-            stock === 1 || cantidad === 1 ? "is-static" : ""
+          className={`button link ${
+            stock === 1 || cantidad === 1 || cantidad === 0 ? "is-static" : ""
           }`}
           onClick={() => handleCantidad("restar")}
         >
@@ -30,9 +30,7 @@ const ItemCount = ({ stock, cantidad, setCantidad, onAdd }) => {
         <button className="button is-static">{cantidad}</button>
 
         <button
-          className={`button is-danger ${
-            cantidad === stock ? "is-static" : ""
-          }`}
+          className={`button link ${cantidad === stock ? "is-static" : ""}`}
           onClick={() => handleCantidad("sumar")}
         >
           <span className="icon is-small">
@@ -40,13 +38,16 @@ const ItemCount = ({ stock, cantidad, setCantidad, onAdd }) => {
           </span>
         </button>
       </div>
-
-      <div className="content">
-        <h6 className="has-text-white">¡{stock} disponible!</h6>
-      </div>
-
-      <button className="button is-danger" onClick={onAdd}>
-        Añadir al carrito
+      <button
+        className={`button link is-fullwidth ${stock === 0 ? 'is-static' : ''}`} 
+        onClick={onAdd}
+      >
+        <span className="icon-text">
+          <span className="icon">
+            <i className="fa-solid fa-cart-shopping" />
+          </span>
+          <span>Añadir al carrito</span>
+        </span>
       </button>
     </div>
   );

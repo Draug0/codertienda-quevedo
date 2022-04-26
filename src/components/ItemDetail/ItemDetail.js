@@ -9,14 +9,15 @@ const ItemDetail = ({ item }) => {
 
   const { addItem, isInCart } = useContext(CartContext);
 
+  let price = item.sale ? item.price - item.price / 10 : item.price
+
   const onAdd = () => {
     let itemAdded = {
       id: item.id,
       title: item.title,
-      price: item.price,
+      price: price,
       stock: item.stock,
-      sale: item.sale,
-      quantity: cantidad
+      quantity: cantidad,
     };
 
     addItem(itemAdded);
@@ -29,57 +30,73 @@ const ItemDetail = ({ item }) => {
   };
 
   return (
-    <article className="media" id="media">
-      <figure className="media-left" id="media-l" style={{ flexGrow: 1 }}>
-        <p className="image">
-          <img id="image" src={item.pictureUrl} alt={item.title} />
-        </p>
-      </figure>
-
-      <div className="media-content" style={{ flexGrow: 3 }}>
-        <div className="content" id="info">
-          <h2>{item.title}</h2>
-          <p>By (autor) {item.author}</p>
-          <hr />
-          <h4>Descripción</h4>
-          <p>{item.description}</p>
+    <div>
+      <div className="item-detail">
+        <div className="imageDiv">
+          <p className="">
+            <img src={item.pictureUrl} alt={item.title} id="img" />
+          </p>
         </div>
-      </div>
-
-      <div className="media-right" id="media-r" style={{ flexGrow: 1 }}>
-        <div className="box is-shadowless" id="price-card">
-          <div className="content">
-            <h3 className="has-text-white">
-              Precio: $ {item.price * cantidad}
-            </h3>
+        <div className="content" id="content-item-detail">
+          <h2>{item.title}</h2>
+          <p className="has-text-grey">By (autor) {item.author}</p>
+          <span className="description">
             <hr />
-            {!isInCart(item.id) ? (
-              <ItemCount
-                stock={item.stock}
-                cantidad={cantidad}
-                setCantidad={setCantidad}
-                onAdd={onAdd}
-              />
-            ) : (
-              <div>
-                <div className="icon is-large">
-                  <i className="fa-regular fa-2x fa-circle-check" />
-                </div>
+            <h4>Descripción</h4>
+            <p>{item.description}</p>
+          </span>
+        </div>
+        <div className="price-card">
+          <div className="card">
+            <div className="card-content">
+              <div className="content" style={{ textAlign: "left" }}>
+                <h2 className="link-color">
+                  ${price}{" "}
+                  <span className="has-text-grey-light is-size-7">
+                    p/unidad
+                  </span>
+                </h2>
                 <hr />
-                <Link to={"/cart"}>
-                  <button className="button is-danger">
-                    Terminar mi compra
-                  </button>
-                </Link>
+                <h4>¡{item.stock} en stock!</h4>
+                <p>Total: ${price * cantidad}</p>
               </div>
-            )}
+              {!isInCart(item.id) ? (
+                <ItemCount
+                  stock={item.stock}
+                  cantidad={cantidad}
+                  setCantidad={setCantidad}
+                  onAdd={onAdd}
+                />
+              ) : (
+                <>
+                  <div className="content">
+                    <h5>¡En el carrito!</h5>
+                  </div>
+                  <Link to={"/cart"} className="button link is-fullwidth">
+                    <span className="icon-text">
+                      <span className="icon">
+                        <i className="fa-solid fa-circle-check" />
+                      </span>
+                      <span>Terminar mi compra</span>
+                    </span>
+                  </Link>
+                </>
+              )}
+            </div>
           </div>
         </div>
+      </div>
+      <div className="content" id="responsive-description">
+        <hr />
+        <h4>Descripción</h4>
+        <p>{item.description}</p>
+      </div>
+      <div style={{ textAlign: "left", marginTop: '20px'}}>
         <button className="button is-black" onClick={handleBack}>
           Atrás
         </button>
       </div>
-    </article>
+    </div>
   );
 };
 
