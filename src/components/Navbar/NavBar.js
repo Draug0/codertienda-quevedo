@@ -61,7 +61,7 @@ const NavBar = () => {
                     </div>
                     
                     <div className="navbar-end">
-                        {cart.length > 0 && <CartWidget />}
+                        {/* cart.length > 0 && */ <CartWidget />}
                     </div>
 
                 </div>

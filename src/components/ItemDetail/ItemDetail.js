@@ -32,56 +32,60 @@ const ItemDetail = ({ item }) => {
   return (
     <div>
       <div className="item-detail">
-        <div className="imageDiv">
-          <p className="">
-            <img src={item.pictureUrl} alt={item.title} id="img" />
-          </p>
-        </div>
-        <div className="content" id="content-item-detail">
-          <h2>{item.title}</h2>
-          <p className="has-text-grey">By (autor) {item.author}</p>
-          <span className="description">
-            <hr />
-            <h4>Descripción</h4>
-            <p>{item.description}</p>
-          </span>
+        <div id='image-content'>
+          <div className="imageDiv">
+            <p className="">
+              <img src={item.pictureUrl} alt={item.title} id="img" />
+            </p>
+          </div>
+          <div className="content" id="content-item-detail">
+            <h2>{item.title}</h2>
+            <p className="has-text-grey">By (autor) {item.author}</p>
+            <span className="description">
+              <hr />
+              <h4>Descripción</h4>
+              <p>{item.description}</p>
+            </span>
+          </div>
         </div>
         <div className="price-card">
-          <div className="card">
-            <div className="card-content">
+          <div className="card" id="card-detail">
+            <div className="card-content" id='card-content'>
               <div className="content" style={{ textAlign: "left" }}>
-                <h2 className="link-color">
+                <h1 className="link-color">
                   ${price}{" "}
                   <span className="has-text-grey-light is-size-7">
                     p/unidad
                   </span>
-                </h2>
+                </h1>
                 <hr />
-                <h4>¡{item.stock} en stock!</h4>
+                <h3>¡{item.stock} en stock!</h3>
                 <p>Total: ${price * cantidad}</p>
               </div>
-              {!isInCart(item.id) ? (
-                <ItemCount
-                  stock={item.stock}
-                  cantidad={cantidad}
-                  setCantidad={setCantidad}
-                  onAdd={onAdd}
-                />
-              ) : (
-                <>
-                  <div className="content">
-                    <h5>¡En el carrito!</h5>
-                  </div>
-                  <Link to={"/cart"} className="button link is-fullwidth">
-                    <span className="icon-text">
-                      <span className="icon">
-                        <i className="fa-solid fa-circle-check" />
+              <div id='handler'>
+                {!isInCart(item.id) ? (
+                  <ItemCount
+                    stock={item.stock}
+                    cantidad={cantidad}
+                    setCantidad={setCantidad}
+                    onAdd={onAdd}
+                  />
+                ) : (
+                  <>
+                    <div className="content">
+                      <h5>¡En el carrito!</h5>
+                    </div>
+                    <Link to={"/cart"} className="button link is-fullwidth">
+                      <span className="icon-text">
+                        <span className="icon">
+                          <i className="fa-solid fa-circle-check" />
+                        </span>
+                        <span>Terminar mi compra</span>
                       </span>
-                      <span>Terminar mi compra</span>
-                    </span>
-                  </Link>
-                </>
-              )}
+                    </Link>
+                  </>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -3,28 +3,16 @@ import { CartContext } from "../context/CartContext";
 import { db } from "../firebase/config";
 import { addDoc, collection, documentId, getDocs, query, Timestamp, where, writeBatch } from "firebase/firestore";
 import { Navigate } from "react-router-dom";
+import { useFormik } from "formik";
 
 const Checkout = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    tel: "",
-  });
   const [ orderId, setOrderId ] = useState()
   const [ stockModal, setStockModal ] = useState(false)
   const [ sinStock, setSinStock ] = useState([])
   const { cart, cartTotal, clearCart, updatePrice } = useContext(CartContext)
 
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const submit = async (values) => {
+    
     const orderCollection = collection(db, 'orders')
     const prodRef = collection(db, 'productos')
     const q = query(prodRef, where(documentId(), 'in', cart.map(i => i.id)))
@@ -50,9 +38,9 @@ const Checkout = () => {
 
     const order =  {
       buyer: {
-        name: form.name,
-        phone: form.tel,
-        email: form.email
+        name: values.name,
+        phone: values.tel,
+        email: values.email
       },
       items: [...cart],
       date: Timestamp.fromDate(new Date()),
@@ -74,6 +62,44 @@ const Checkout = () => {
       }
     }    
   };
+  
+  const validate = (values) => {
+    const errors = {}
+
+    if (!values.name) {
+      errors.name = 'Obligatorio*'
+    } else if (values.name.length < 3) {
+      errors.name = 'El nombre debe tener 4 letras o más'
+    }
+
+    if (!values.email) {
+      errors.email = 'Obligatorio*'
+    } 
+
+    if (!values.confirmEmail) {
+      errors.confirmEmail = 'Obligatorio*'
+    } else if (values.email !== values.confirmEmail) {
+      errors.confirmEmail = 'Los emails deben coincidir.'
+    }
+
+    if (!values.tel) {
+      errors.tel = 'Obligatorio*'
+    }
+
+    return errors;
+  }
+
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      confirmEmail: '',
+      tel: ''
+    },
+    validate,
+    onSubmit: submit
+  })
 
   const handleModal = () => {
     setStockModal(false)
@@ -96,13 +122,16 @@ const Checkout = () => {
     <div className="container">
       <p className="title">Finaliza tu compra</p>
       <hr />
-      <form onSubmit={handleSubmit} onChange={handleChange}>
+      <form onSubmit={formik.handleSubmit}>
         <div className="field">
           <p className="control has-icons-left">
             <input
               className="input is-rounded"
               type="text"
               name="name"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Nombre y apellido*"
               required
             />
@@ -110,6 +139,9 @@ const Checkout = () => {
               <i className="fa-solid fa-user" />
             </span>
           </p>
+          {formik.touched.name && formik.errors.name ? (
+            <p className="help is-danger">{formik.errors.name}</p>
+           ) : null}
         </div>
         <div className="field">
           <div className="control has-icons-left">
@@ -117,6 +149,9 @@ const Checkout = () => {
               className="input is-rounded"
               type="email"
               name="email"
+              value={formik.values.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               placeholder="Email*"
               required
             />
@@ -124,6 +159,29 @@ const Checkout = () => {
               <i className="fa-solid fa-envelope" />
             </span>
           </div>
+          {formik.touched.email && formik.errors.email ? (
+            <p className="help is-danger">{formik.errors.email}</p>
+           ) : null}
+        </div>
+        <div className="field">
+          <div className="control has-icons-left">
+            <input
+              className="input is-rounded"
+              type="email"
+              name="confirmEmail"
+              value={formik.values.confirmEmail}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              placeholder="Confirmar email*"
+              required
+            />
+            <span className="icon is-small is-left">
+              <i className="fa-solid fa-envelope" />
+            </span>
+          </div>
+          {formik.touched.confirmEmail && formik.errors.confirmEmail ? (
+            <p className="help is-danger">{formik.errors.confirmEmail}</p>
+           ) : null}
         </div>
         <div className="field">
           <div className="control has-icons-left">
@@ -131,6 +189,9 @@ const Checkout = () => {
               className="input is-rounded"
               type="tel"
               name="tel"
+              value={formik.values.tel}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{3,4}||[0-9]{3} [0-9]{3,4} [0-9]{4}||[0-9]{10}"
               placeholder="Número de teléfono*"
               required
@@ -139,6 +200,9 @@ const Checkout = () => {
               <i className="fa-solid fa-phone" />
             </span>
           </div>
+          {formik.touched.tel && formik.errors.tel ? (
+            <p className="help is-danger">{formik.errors.tel}</p>
+           ) : null}
         </div>
         <button className="button link" type="submit">
           Checkout

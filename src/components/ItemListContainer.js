@@ -38,7 +38,7 @@ const ItemListContainer = ({ sale }) => {
   return (
     <div className="container">
       {loading ? (
-        <button className="button is-loading" />
+        <div className="lds-ripple"><div></div><div></div></div>
       ) : (
         <div className="box is-shadowless">
           <p className="title" style={{ textAlign: "left" }}>

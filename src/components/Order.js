@@ -17,7 +17,7 @@ const Order = () => {
       }))
   }, [orderId])
 
-  if (order == undefined) {
+  if (order === undefined) {
     return (
       <Navigate to='/' />
     )

@@ -28,7 +28,7 @@ const ItemDetailContainer = () => {
   return (
     <div className="container">
       {loading ? (
-        <button className="button is-loading" />
+        <div className="lds-ripple"><div></div><div></div></div>
       ) : (
         <>
           <nav
@@ -47,7 +47,7 @@ const ItemDetailContainer = () => {
                 </Link>
               </li>
               <li className="is-active">
-                <a href="#" aria-current="page">
+                <a aria-current="page">
                   {item.title}
                 </a>
               </li>
