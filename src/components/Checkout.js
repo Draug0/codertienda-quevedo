@@ -1,121 +1,137 @@
 import React, { useContext, useState } from "react";
 import { CartContext } from "../context/CartContext";
 import { db } from "../firebase/config";
-import { addDoc, collection, documentId, getDocs, query, Timestamp, where, writeBatch } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  documentId,
+  getDocs,
+  query,
+  Timestamp,
+  where,
+  writeBatch,
+} from "firebase/firestore";
 import { Navigate } from "react-router-dom";
 import { useFormik } from "formik";
+import Steps from "./Steps";
 
 const Checkout = () => {
-  const [ orderId, setOrderId ] = useState()
-  const [ stockModal, setStockModal ] = useState(false)
-  const [ sinStock, setSinStock ] = useState([])
-  const { cart, cartTotal, clearCart, updatePrice } = useContext(CartContext)
+  const [orderId, setOrderId] = useState();
+  const [stockModal, setStockModal] = useState(false);
+  const [sinStock, setSinStock] = useState([]);
+  const { cart, cartTotal, clearCart, updatePrice } = useContext(CartContext);
 
   const submit = async (values) => {
-    
-    const orderCollection = collection(db, 'orders')
-    const prodRef = collection(db, 'productos')
-    const q = query(prodRef, where(documentId(), 'in', cart.map(i => i.id)))
+    const orderCollection = collection(db, "orders");
+    const prodRef = collection(db, "productos");
+    const q = query(
+      prodRef,
+      where(
+        documentId(),
+        "in",
+        cart.map((i) => i.id)
+      )
+    );
 
-    const productos = await getDocs(q)
-    const batch = writeBatch(db)
-    var noStock = []
+    const productos = await getDocs(q);
+    const batch = writeBatch(db);
+    var noStock = [];
 
-    productos.docs.forEach(item => {
-      const producto = item.data()
-      const prodInCart = cart.find(i => i.id === item.id)
+    productos.docs.forEach((item) => {
+      const producto = item.data();
+      const prodInCart = cart.find((i) => i.id === item.id);
 
-      let price = producto.sale ? producto.price - producto.price / 10 : producto.price
-      updatePrice(item.id, price)
+      let price = producto.sale
+        ? producto.price - producto.price / 10
+        : producto.price;
+      updatePrice(item.id, price);
 
       if (prodInCart.quantity <= producto.stock && prodInCart.quantity > 0) {
-        let newStock = producto.stock - prodInCart.quantity
-        batch.update(item.ref, { stock: newStock })
+        let newStock = producto.stock - prodInCart.quantity;
+        batch.update(item.ref, { stock: newStock });
       } else {
-        noStock.push(producto.title)
+        noStock.push(producto.title);
       }
-    })
+    });
 
-    const order =  {
+    const order = {
       buyer: {
         name: values.name,
         phone: values.tel,
-        email: values.email
+        email: values.email,
       },
       items: [...cart],
       date: Timestamp.fromDate(new Date()),
-      total: cartTotal()
-    }
+      total: cartTotal(),
+    };
 
     if (noStock.length === 0) {
-      addDoc(orderCollection, order)
-        .then((doc) => {
-          batch.commit()
-          setOrderId(doc.id)
-          clearCart()
-        })
+      addDoc(orderCollection, order).then((doc) => {
+        batch.commit();
+        setOrderId(doc.id);
+        clearCart();
+      });
     } else {
-      setStockModal(true)
-      setSinStock(noStock)
+      setStockModal(true);
+      setSinStock(noStock);
       for (let i = 0; i < noStock.length; i++) {
-        noStock.pop()
+        noStock.pop();
       }
-    }    
+    }
   };
-  
+
   const validate = (values) => {
-    const errors = {}
+    const errors = {};
+    const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    const telRegex = /^[1-9]\d{2}-\d{3}-\d{4}||/;
 
     if (!values.name) {
-      errors.name = 'Obligatorio*'
+      errors.name = "Obligatorio*";
     } else if (values.name.length < 3) {
-      errors.name = 'El nombre debe tener 4 letras o más'
+      errors.name = "El nombre debe tener 4 letras o más.";
     }
 
     if (!values.email) {
-      errors.email = 'Obligatorio*'
-    } 
+      errors.email = "Obligatorio*";
+    } else if (!emailRegex.test(values.email)) {
+      errors.email = "Dirección de email.";
+    }
 
     if (!values.confirmEmail) {
-      errors.confirmEmail = 'Obligatorio*'
+      errors.confirmEmail = "Obligatorio*";
     } else if (values.email !== values.confirmEmail) {
-      errors.confirmEmail = 'Los emails deben coincidir.'
+      errors.confirmEmail = "Los emails deben coincidir.";
     }
 
     if (!values.tel) {
-      errors.tel = 'Obligatorio*'
+      errors.tel = "Obligatorio*";
     }
 
     return errors;
-  }
-
+  };
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      email: '',
-      confirmEmail: '',
-      tel: ''
+      name: "",
+      email: "",
+      confirmEmail: "",
+      tel: "",
     },
     validate,
-    onSubmit: submit
-  })
+    onSubmit: submit,
+  });
 
   const handleModal = () => {
-    setStockModal(false)
-    setSinStock([])
-  }
+    setStockModal(false);
+    setSinStock([]);
+  };
 
-  if(orderId) {
-    return (
-      <Navigate to={`/order/${orderId}`} />
-    )
+  if (orderId) {
+    return <Navigate to={`/order/${orderId}`} />;
   }
 
   if (cart.length === 0) {
-    return (
-      <Navigate to='/' />
-    )
+    return <Navigate to="/" />;
   }
 
   return (
@@ -126,7 +142,9 @@ const Checkout = () => {
         <div className="field">
           <p className="control has-icons-left">
             <input
-              className="input is-rounded"
+              className={`input is-rounded ${
+                formik.touched.name && formik.errors.name ? "is-danger" : ""
+              }`}
               type="text"
               name="name"
               value={formik.values.name}
@@ -141,12 +159,14 @@ const Checkout = () => {
           </p>
           {formik.touched.name && formik.errors.name ? (
             <p className="help is-danger">{formik.errors.name}</p>
-           ) : null}
+          ) : null}
         </div>
         <div className="field">
           <div className="control has-icons-left">
             <input
-              className="input is-rounded"
+              className={`input is-rounded ${
+                formik.touched.email && formik.errors.email ? "is-danger" : ""
+              }`}
               type="email"
               name="email"
               value={formik.values.email}
@@ -161,12 +181,14 @@ const Checkout = () => {
           </div>
           {formik.touched.email && formik.errors.email ? (
             <p className="help is-danger">{formik.errors.email}</p>
-           ) : null}
+          ) : null}
         </div>
         <div className="field">
           <div className="control has-icons-left">
             <input
-              className="input is-rounded"
+              className={`input is-rounded ${
+                formik.touched.confirmEmail && formik.errors.confirmEmail ? "is-danger" : ""
+              }`}
               type="email"
               name="confirmEmail"
               value={formik.values.confirmEmail}
@@ -181,12 +203,14 @@ const Checkout = () => {
           </div>
           {formik.touched.confirmEmail && formik.errors.confirmEmail ? (
             <p className="help is-danger">{formik.errors.confirmEmail}</p>
-           ) : null}
+          ) : null}
         </div>
         <div className="field">
           <div className="control has-icons-left">
             <input
-              className="input is-rounded"
+              className={`input is-rounded ${
+                formik.touched.tel && formik.errors.tel ? "is-danger" : ""
+              }`}
               type="tel"
               name="tel"
               value={formik.values.tel}
@@ -202,30 +226,37 @@ const Checkout = () => {
           </div>
           {formik.touched.tel && formik.errors.tel ? (
             <p className="help is-danger">{formik.errors.tel}</p>
-           ) : null}
+          ) : null}
         </div>
         <button className="button link" type="submit">
           Checkout
         </button>
       </form>
-      {
-        stockModal && (
-          <div className="modal is-active">
-            <div className="modal-background" onClick={handleModal}/>
-            <div className="modal-content">
-              <div className="box">
-                <div className="content" style={{textAlign: 'left'}}>
-                  <h3>No hay suficiente stock de los siguientes item(s):</h3>
-                  <ul>
-                    {sinStock.map((i, n) => <li key={n}>{i}</li>)}
-                  </ul>
-                </div>
+      {stockModal && (
+        <div className="modal is-active">
+          <div className="modal-background" onClick={handleModal} />
+          <div className="modal-content">
+            <div className="box">
+              <div className="content" style={{ textAlign: "left" }}>
+                <h3>No hay suficiente stock de los siguientes item(s):</h3>
+                <ul>
+                  {sinStock.map((i, n) => (
+                    <li key={n}>{i}</li>
+                  ))}
+                </ul>
               </div>
             </div>
-            <button className="modal-close is-large" aria-label="close" onClick={handleModal} />
           </div>
-        )
-      }
+          <button
+            className="modal-close is-large"
+            aria-label="close"
+            onClick={handleModal}
+          />
+        </div>
+      )}
+      <div style={{ textAlign: "left" }}>
+      <Steps info={true}/>
+      </div>
     </div>
   );
 };

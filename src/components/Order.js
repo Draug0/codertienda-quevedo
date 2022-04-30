@@ -2,6 +2,7 @@ import { doc, getDoc } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { Navigate, useParams } from 'react-router-dom'
 import { db } from '../firebase/config'
+import Steps from './Steps'
 
 const Order = () => {
   const [ order, setOrder] = useState('')
@@ -26,7 +27,7 @@ const Order = () => {
   if (loading) {
     return (
       <div className='container'>
-        <button className='button is-loading' />
+        <div className="lds-ripple"><div></div><div></div></div>
       </div>
     )
   }
@@ -82,6 +83,7 @@ const Order = () => {
           </p>
         </blockquote>
       </div>
+      <Steps order={true}/>
     </div>
   )
 }
