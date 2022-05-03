@@ -20,9 +20,14 @@ const Checkout = () => {
   const [orderId, setOrderId] = useState();
   const [stockModal, setStockModal] = useState(false);
   const [sinStock, setSinStock] = useState([]);
+  const [loading, setLoading] = useState(false)
   const { cart, cartTotal, clearCart, updatePrice } = useContext(CartContext);
 
+  document.title = 'Checkout - Red Book'
+
   const submit = async (values) => {
+    setLoading(true)
+
     const orderCollection = collection(db, "orders");
     const prodRef = collection(db, "productos");
     const q = query(
@@ -71,6 +76,7 @@ const Checkout = () => {
         batch.commit();
         setOrderId(doc.id);
         clearCart();
+        setLoading(false)
       });
     } else {
       setStockModal(true);
@@ -78,13 +84,14 @@ const Checkout = () => {
       for (let i = 0; i < noStock.length; i++) {
         noStock.pop();
       }
+      setLoading(false)
     }
   };
 
   const validate = (values) => {
     const errors = {};
     const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    const telRegex = /^[1-9]\d{2}-\d{3}-\d{4}||/;
+    const telRegex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
 
     if (!values.name) {
       errors.name = "Obligatorio*";
@@ -106,6 +113,8 @@ const Checkout = () => {
 
     if (!values.tel) {
       errors.tel = "Obligatorio*";
+    } else if (!telRegex.test(values.tel)) {
+      errors.tel = 'Utiliza un formato adecuado, ej: "1234567899", "123 456 7899", "123-456-7899", "(123) 456 7899"'
     }
 
     return errors;
@@ -122,14 +131,6 @@ const Checkout = () => {
     onSubmit: submit,
   });
 
-  console.log(
-    formik.touched.name &&
-      !formik.errors.name &&
-      !formik.errors.email &&
-      !formik.errors.confirmEmail &&
-      !formik.errors.tel
-  );
-
   const handleModal = () => {
     setStockModal(false);
     setSinStock([]);
@@ -137,6 +138,14 @@ const Checkout = () => {
 
   if (orderId) {
     return <OrderReady orderId={orderId} />;
+  }
+
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="lds-ripple"><div></div><div></div></div>
+      </div>
+    )
   }
 
   if (cart.length === 0) {
@@ -227,7 +236,6 @@ const Checkout = () => {
               value={formik.values.tel}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              pattern="[0-9]{3}-[0-9]{3}-[0-9]{3,4}||[0-9]{3} [0-9]{3,4} [0-9]{4}||[0-9]{10}"
               placeholder="Número de teléfono*"
               required
             />
@@ -240,7 +248,9 @@ const Checkout = () => {
           ) : null}
         </div>
         <button 
-          className="button link" 
+          className={`button link ${
+            formik.isValid && formik.dirty ? '' : 'is-static'
+          }`} 
           type="submit"
         >
           Realizar compra

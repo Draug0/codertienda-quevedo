@@ -8,6 +8,8 @@ import Steps from "../Steps";
 const Cart = () => {
   const { cart, clearCart, cartTotal } = useContext(CartContext);
 
+  document.title = 'Carrito - Red Book'
+
   if (cart.length === 0) {
     return (
       <div className="container">

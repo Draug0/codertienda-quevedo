@@ -8,6 +8,8 @@ const OrderSearch = () => {
   const [order, setOrder] = useState();
   const [loading, setLoading] = useState(false);
 
+  document.title = 'Buscar tu orden - Red Book'
+
   const maskEmail = (email = "") => {
     const [name, domain] = email.split("@");
     const { length: len } = name;

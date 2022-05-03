@@ -20,6 +20,7 @@ const ItemDetailContainer = () => {
       .then((doc) => {
         const prod = { id: doc.id, ...doc.data() };
         setItem(prod);
+        document.title = prod.title + ' - Red Book'
       })
       .catch((err) => console.log(err))
       .finally(() => setLoading(false));

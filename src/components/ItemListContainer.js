@@ -13,6 +13,11 @@ const ItemListContainer = ({ sale }) => {
   useEffect(() => {
     setLoading(true);
 
+    document.title = `${
+      categoryId ? categoryId.charAt(0).toUpperCase() + categoryId.replace('-', ' ').slice(1) 
+        : sale ? 'Ofertas' : 'Inicio'
+    } - Red Book`
+
     const productosRef = collection(db, "productos");
     const q = categoryId
       ? query(productosRef, where("category", "==", categoryId))
