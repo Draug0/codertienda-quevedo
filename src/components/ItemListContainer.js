@@ -35,36 +35,45 @@ const ItemListContainer = ({ sale }) => {
       });
   }, [categoryId, sale]);
 
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container">
-      {loading ? (
-        <div className="lds-ripple"><div></div><div></div></div>
-      ) : (
-        <div className="box is-shadowless">
-          <p className="title" style={{ textAlign: "left" }}>
-            {sale ? "Ofertas" : "Catálogo"}
-          </p>
-          {categoryId && (
-            <nav
-              className="breadcrumb has-succeeds-separator"
-              aria-label="breadcrumbs"
-            >
-              <ul>
-                <li>
-                  <Link className="link-color" to={"/"}>Home</Link>
-                </li>
-                <li className="is-active">
-                  <a href="#" aria-current="page">
-                    {categoryId}
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          )}
-          <hr />
-          <ItemList items={items} />
-        </div>
-      )}
+      <div className="box is-shadowless">
+        <p className="title" style={{ textAlign: "left" }}>
+          {sale ? "Ofertas" : "Catálogo"}
+        </p>
+        {categoryId && (
+          <nav
+            className="breadcrumb has-succeeds-separator"
+            aria-label="breadcrumbs"
+          >
+            <ul>
+              <li>
+                <Link className="link-color" to={"/"}>
+                  Inicio
+                </Link>
+              </li>
+              <li className="is-active">
+                <a href="#" aria-current="page">
+                  {categoryId && categoryId.charAt(0).toUpperCase() + categoryId.replace('-', ' ').slice(1)}
+                </a>
+              </li>
+            </ul>
+          </nav>
+        )}
+        <hr />
+        <ItemList items={items} />
+      </div>
     </div>
   );
 };

@@ -14,6 +14,7 @@ import {
 import { Navigate } from "react-router-dom";
 import { useFormik } from "formik";
 import Steps from "./Steps";
+import OrderReady from "./OrderReady";
 
 const Checkout = () => {
   const [orderId, setOrderId] = useState();
@@ -121,13 +122,21 @@ const Checkout = () => {
     onSubmit: submit,
   });
 
+  console.log(
+    formik.touched.name &&
+      !formik.errors.name &&
+      !formik.errors.email &&
+      !formik.errors.confirmEmail &&
+      !formik.errors.tel
+  );
+
   const handleModal = () => {
     setStockModal(false);
     setSinStock([]);
   };
 
   if (orderId) {
-    return <Navigate to={`/order/${orderId}`} />;
+    return <OrderReady orderId={orderId} />;
   }
 
   if (cart.length === 0) {
@@ -187,7 +196,9 @@ const Checkout = () => {
           <div className="control has-icons-left">
             <input
               className={`input is-rounded ${
-                formik.touched.confirmEmail && formik.errors.confirmEmail ? "is-danger" : ""
+                formik.touched.confirmEmail && formik.errors.confirmEmail
+                  ? "is-danger"
+                  : ""
               }`}
               type="email"
               name="confirmEmail"
@@ -228,8 +239,11 @@ const Checkout = () => {
             <p className="help is-danger">{formik.errors.tel}</p>
           ) : null}
         </div>
-        <button className="button link" type="submit">
-          Checkout
+        <button 
+          className="button link" 
+          type="submit"
+        >
+          Realizar compra
         </button>
       </form>
       {stockModal && (
@@ -255,7 +269,7 @@ const Checkout = () => {
         </div>
       )}
       <div style={{ textAlign: "left" }}>
-      <Steps info={true}/>
+        <Steps info={true} />
       </div>
     </div>
   );

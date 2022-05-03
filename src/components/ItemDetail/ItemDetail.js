@@ -4,12 +4,25 @@ import { Link, useNavigate } from "react-router-dom";
 import "./itemDetail.css";
 import { CartContext } from "../../context/CartContext";
 
+const styles = {
+  ribbon: {
+    color: "white",
+    position: "relative",
+    top: "-12px",
+    textAlign: "center",
+    right: "-7px",
+  },
+  bmRib: {
+    top: '5%'
+  }
+};
+
 const ItemDetail = ({ item }) => {
   const [cantidad, setCantidad] = useState(1);
 
   const { addItem, isInCart } = useContext(CartContext);
 
-  let price = item.sale ? item.price - item.price / 10 : item.price
+  let price = item.sale ? item.price - item.price / 10 : item.price;
 
   const onAdd = () => {
     let itemAdded = {
@@ -32,7 +45,7 @@ const ItemDetail = ({ item }) => {
   return (
     <div>
       <div className="item-detail">
-        <div id='image-content'>
+        <div id="image-content">
           <div className="imageDiv">
             <p className="">
               <img src={item.pictureUrl} alt={item.title} id="img" />
@@ -50,7 +63,12 @@ const ItemDetail = ({ item }) => {
         </div>
         <div className="price-card">
           <div className="card" id="card-detail">
-            <div className="card-content" id='card-content'>
+            {item.sale && (
+              <div className="bookmarkRibbon" style={styles.bmRib}>
+                <span style={styles.ribbon}>- 10%</span>
+              </div>
+            )}
+            <div className="card-content" id="card-content">
               <div className="content" style={{ textAlign: "left" }}>
                 <h1 className="link-color">
                   ${price}{" "}
@@ -62,7 +80,7 @@ const ItemDetail = ({ item }) => {
                 <h3>¡{item.stock} en stock!</h3>
                 <p>Total: ${price * cantidad}</p>
               </div>
-              <div id='handler'>
+              <div id="handler">
                 {!isInCart(item.id) ? (
                   <ItemCount
                     stock={item.stock}
@@ -95,7 +113,7 @@ const ItemDetail = ({ item }) => {
         <h4>Descripción</h4>
         <p>{item.description}</p>
       </div>
-      <div style={{ textAlign: "left", marginTop: '20px'}}>
+      <div style={{ textAlign: "left", marginTop: "20px" }}>
         <button className="button is-black" onClick={handleBack}>
           Atrás
         </button>

@@ -25,38 +25,41 @@ const ItemDetailContainer = () => {
       .finally(() => setLoading(false));
   }, [itemId]);
 
+  if (loading) {
+    return (
+      <div className="container">
+        <div className="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="container">
-      {loading ? (
-        <div className="lds-ripple"><div></div><div></div></div>
-      ) : (
-        <>
-          <nav
-            className="breadcrumb has-succeeds-separator small"
-            aria-label="breadcrumbs"
-          >
-            <ul>
-              <li>
-                <Link className="link-color" to={"/"}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link className="link-color" to={`/category/${item.category}`}>
-                  {item.category}
-                </Link>
-              </li>
-              <li className="is-active">
-                <a aria-current="page">
-                  {item.title}
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <hr />
-          <ItemDetail item={item} />
-        </>
-      )}
+      <nav
+        className="breadcrumb has-succeeds-separator small"
+        aria-label="breadcrumbs"
+      >
+        <ul>
+          <li>
+            <Link className="link-color" to={"/"}>
+              Inicio
+            </Link>
+          </li>
+          <li>
+            <Link className="link-color" to={`/category/${item.category}`}>
+              {item.category && item.category.charAt(0).toUpperCase() + item.category.replace('-', ' ').slice(1)}
+            </Link>
+          </li>
+          <li className="is-active">
+            <a aria-current="page">{item.title}</a>
+          </li>
+        </ul>
+      </nav>
+      <hr />
+      <ItemDetail item={item} />
     </div>
   );
 };

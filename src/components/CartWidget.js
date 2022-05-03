@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
 
 const CartWidget = () => {
-    const { cartQuantityTotal, cartTotal } = useContext(CartContext)
+    const { cartQuantityTotal } = useContext(CartContext)
     
     return (
         <Link to={'/cart'} className="navbar-item">

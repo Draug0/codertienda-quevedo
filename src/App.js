@@ -7,7 +7,8 @@ import ItemDetailContainer from './components/ItemDetailContainer/ItemDetailCont
 import Cart from './components/Cart/Cart';
 import { CartProvider } from './context/CartContext';
 import Checkout from './components/Checkout';
-import Order from './components/Order';
+import OrderSearch from './components/OrderSearch';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -29,12 +30,12 @@ function App() {
 
                 <Route exact path='/checkout' element={<Checkout />} />
 
-                <Route exact path='/order/:orderId' element={<Order />} /> 
+                <Route exact path='/order-search' element={<OrderSearch />} /> 
 
                 <Route exact path='*' element={<Navigate to='/' />} />
               </Routes>
             </div>
-            <footer className='footer' style={{textAlign: 'center'}}/>
+            <Footer/>
           </section>
       </BrowserRouter>
     </CartProvider>

@@ -73,7 +73,7 @@ const Cart = () => {
           </tfoot>
         </table>
       </div>
-      <Steps cart={true}/>
+      <Steps cart={true} />
     </div>
   );
 };

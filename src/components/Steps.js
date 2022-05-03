@@ -1,14 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/Steps.css";
 
-const Steps = ({cart, info, order}) => {
+const Steps = ({ cart, info, order }) => {
   return (
-    <ul className="steps is-medium is-centered has-content-centered" style={{marginTop: '30px'}}>
-      <li className={`steps-segment 
-        ${cart ? 'is-active has-gaps' : 'has-gaps'}
-      `}>
-        <Link to='/cart' className="has-text-dark">
+    <ul
+      className="steps is-medium is-centered has-content-centered"
+      style={{ marginTop: "30px" }}
+    >
+      <li
+        className={`steps-segment
+        ${cart ? "is-active has-gaps" : "has-gaps"}
+      `}
+      >
+        <Link to="/cart" className="has-text-dark">
           <span className="steps-marker">
             <span className="icon">
               <i className="fa fa-shopping-cart"></i>
@@ -19,10 +24,12 @@ const Steps = ({cart, info, order}) => {
           </div>
         </Link>
       </li>
-      <li className={`steps-segment 
-        ${info ? 'is-active has-gaps' : 'has-gaps'}
-      `}>
-        <Link to='/checkout' className="has-text-dark">
+      <li
+        className={`steps-segment 
+        ${info ? "is-active has-gaps" : "has-gaps"}
+      `}
+      >
+        <Link to="/checkout" className="has-text-dark">
           <span className="steps-marker">
             <span className="icon">
               <i className="fa fa-user"></i>
@@ -33,9 +40,11 @@ const Steps = ({cart, info, order}) => {
           </div>
         </Link>
       </li>
-      <li className={`steps-segment 
-        ${order ? 'is-active' : 'has-gaps'}
-      `}>
+      <li
+        className={`steps-segment 
+        ${order ? "is-active" : "has-gaps"}
+      `}
+      >
         <span className="steps-marker">
           <span className="icon">
             <i className="fa fa-check"></i>
