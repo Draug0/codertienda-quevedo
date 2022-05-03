@@ -102,7 +102,7 @@ const Checkout = () => {
     if (!values.email) {
       errors.email = "Obligatorio*";
     } else if (!emailRegex.test(values.email)) {
-      errors.email = "Dirección de email.";
+      errors.email = "Dirección de email inválida.";
     }
 
     if (!values.confirmEmail) {
